@@ -11,8 +11,17 @@ const categorySlice = createSlice({
     setCategory(state, action) {
       state.categories = action.payload;
     },
+    isAvaible(state,action){
+if((action.payload.points-action.payload.cost)>0){
+  const findCategory=state.find(item=>item.id==action.payload.id)
+  return {
+    ...findCategory,
+    avaible:true
+  }
+}
+    }
   },
 });
 
-export const {setCategory } = categorySlice.actions;
+export const {setCategory,isAvaible } = categorySlice.actions;
 export default categorySlice.reducer;

@@ -5,7 +5,7 @@ import Category from "./pages/Category";
 import Header from "./components/Header";
 import { Route, Routes } from "react-router-dom";
 import Level from "./pages/Level";
-import CategoryCard from "./pages/CategoryCard";
+import CategoryCards from "./pages/CategoryCards";
 
 function App() {
 
@@ -17,8 +17,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Category" element={<Category/>} />
-          <Route path="/Level" element={<Level/>} />
-          <Route path="/CategoryCard" element={<CategoryCard/>} />
+          <Route path="/Level/:id" element={<Level/>} />
+          <Route path="/CategoryCards" element={<CategoryCards/>} />
         </Routes>
       </div>
     </div>
