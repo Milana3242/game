@@ -1,13 +1,13 @@
-import React from "react";
-import { setCategory } from "../redux/slices/categorySlice";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import CategoryItem from "../components/CategoryItem";
+import React from 'react';
+import { setCategory } from '../redux/slices/categorySlice';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+import CategoryItem from '../components/CategoryItem';
 
 function Category(props) {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
-  console.log(categories)
+  console.log(categories);
   async function getCategory() {
     try {
       const res = await axios.get(
@@ -21,7 +21,9 @@ function Category(props) {
   }
 
   React.useEffect(() => {
-    getCategory();
+    if (!categories) {
+      getCategory();
+    }
   }, []);
 
   return (

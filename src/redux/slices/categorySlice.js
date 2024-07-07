@@ -1,27 +1,31 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-categories:[]
+  categories: [],
 };
 
 const categorySlice = createSlice({
-  name: "points",
+  name: 'points',
   initialState,
   reducers: {
     setCategory(state, action) {
       state.categories = action.payload;
     },
-    isAvaible(state,action){
-if((action.payload.points-action.payload.cost)>0){
-  const findCategory=state.find(item=>item.id==action.payload.id)
-  return {
-    ...findCategory,
-    avaible:true
-  }
-}
-    }
+    isAvaible(state, action) {
+      const findCategory = state.categories.find(
+        (item) => item.id == action.payload.id
+      );
+      findCategory.avaible = true;
+    },
+    isLevel(state, action) {
+      const findCategory = state.categories.find(
+        (item) => item.id == action.payload.id
+      );
+      console.log(findCategory[action.payload.i]);
+      findCategory.level[action.payload.i].status = 1;
+    },
   },
 });
 
-export const {setCategory,isAvaible } = categorySlice.actions;
+export const { setCategory, isAvaible, isLevel } = categorySlice.actions;
 export default categorySlice.reducer;
