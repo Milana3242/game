@@ -1,8 +1,9 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import { isLevel } from '../redux/slices/categorySlice';
-import { spendPoints } from '../redux/slices/pointsSlice';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { setLevel } from "../redux/slices/categorySlice";
+import { spendPoints } from "../redux/slices/pointsSlice";
+import axios from "axios";
 
 function Level(props) {
   const { id } = useParams();
@@ -11,18 +12,38 @@ function Level(props) {
   const { categories } = useSelector((state) => state.categories);
   const { points } = useSelector((state) => state.points);
   const findCateg = categories.find((categ) => categ.id == id);
+
+  async function updateCategory(findCateg, i) {
+    let level = findCateg.level.map((item,index) => i===index?{...item,status:1}:item);
+    console.log(level, i);
+
+    try {
+      const res = await axios.put(
+        `https://6686a7ef83c983911b03234c.mockapi.io/categories/${findCateg.id}`,
+        {
+          level: level,
+        }
+      );
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+    window.scrollTo(0, 0);
+  }
+
   function openLevel(i) {
     if (points - findCateg.cost >= 0) {
-      dispatch(isLevel({ id, i }));
+      dispatch(setLevel({ id, i }));
       dispatch(spendPoints(findCateg.cost, points));
+      updateCategory(findCateg, i);
     } else {
-      alert('НЕТ ДЕНЯК БОМЖ');
+      alert("НЕТ ДЕНЯК БОМЖ");
     }
   }
   return (
     <div className="level_icon">
       {level.map((item, i) => {
-        console.log('sa', findCateg.level[i].status);
+        console.log("sa", findCateg.level[i].status);
 
         return findCateg.level[i].status === 0 ? (
           <svg
@@ -31,8 +52,7 @@ function Level(props) {
             height="80px"
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+            xmlns="http://www.w3.org/2000/svg">
             <path
               fill-rule="evenodd"
               clip-rule="evenodd"
@@ -47,8 +67,7 @@ function Level(props) {
               height="80px"
               viewBox="0 0 24 24"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+              xmlns="http://www.w3.org/2000/svg">
               <path
                 fill-rule="evenodd"
                 clip-rule="evenodd"

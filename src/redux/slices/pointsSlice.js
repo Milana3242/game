@@ -1,23 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   points: 300,
 };
 
 const pointsSlice = createSlice({
-  name: 'points',
+  name: "points",
   initialState,
   reducers: {
     spendPoints(state, action) {
       state.points = state.points - action.payload;
-      state.oneGamePoints = state.oneGamePoints - action.payload;
     },
     addPoints(state, action) {
       state.points = state.points + action.payload;
-      state.oneGamePoints = state.oneGamePoints + action.payload;
+    },
+    manyPoints(state, action) {
+      state.points=1000
     },
   },
 });
 
-export const { spendPoints, addPoints } = pointsSlice.actions;
+export const { spendPoints, addPoints,manyPoints } = pointsSlice.actions;
 export default pointsSlice.reducer;

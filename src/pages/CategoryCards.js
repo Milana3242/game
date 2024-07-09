@@ -1,22 +1,25 @@
 import React from 'react';
-import { changeStatus, setCards } from '../redux/slices/cardSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+
 import {
   addPoints,
-  oneGamePoints,
   spendPoints,
 } from '../redux/slices/pointsSlice';
 import CardItem from '../components/CardItem';
+import { changeStatus, setCards } from '../redux/slices/cardSlice';
+
 
 function CategoryCards(props) {
   const [index, setIndex] = React.useState(0);
   const [points, setPoints] = React.useState(0);
   const [correct, setCorrect] = React.useState(0);
   const [incorrect, setInCorrect] = React.useState(0);
+
   const dispatch = useDispatch();
   const { id, level } = useParams();
+
   async function getCards() {
     try {
       const res = await axios.get(
@@ -35,10 +38,7 @@ function CategoryCards(props) {
 
   const { cards } = useSelector((state) => state.cards);
   const navigate = useNavigate();
-  // const filterCards = cards.filter(
-  //   (card) => card.id == id && card.level == level
-  // );
-  // console.log(filterCards);
+
   function nextCard(e) {
     // console.log(e.target.textContent === String(filterCards[count].answer));
     // console.log(e.target.textContent);

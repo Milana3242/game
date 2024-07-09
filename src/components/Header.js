@@ -7,6 +7,7 @@ function Header(props) {
   const navigate = useNavigate();
   console.log(points);
 
+
   return (
     <div className="Header">
       <button onClick={() => navigate(-1)}>Назад</button>

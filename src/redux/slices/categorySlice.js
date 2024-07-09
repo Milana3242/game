@@ -5,27 +5,26 @@ const initialState = {
 };
 
 const categorySlice = createSlice({
-  name: 'points',
+  name: 'category',
   initialState,
   reducers: {
     setCategory(state, action) {
       state.categories = action.payload;
     },
-    isAvaible(state, action) {
+    setAvaible(state, action) {
       const findCategory = state.categories.find(
         (item) => item.id == action.payload.id
       );
       findCategory.avaible = true;
     },
-    isLevel(state, action) {
+    setLevel(state, action) {
       const findCategory = state.categories.find(
         (item) => item.id == action.payload.id
       );
-      console.log(findCategory[action.payload.i]);
       findCategory.level[action.payload.i].status = 1;
     },
   },
 });
 
-export const { setCategory, isAvaible, isLevel } = categorySlice.actions;
+export const { setCategory, setAvaible, setLevel } = categorySlice.actions;
 export default categorySlice.reducer;

@@ -6,8 +6,8 @@ import Header from './components/Header';
 import { Route, Routes } from 'react-router-dom';
 import Level from './pages/Level';
 import CategoryCards from './pages/CategoryCards';
-
 function App() {
+
   return (
     <div className="App">
       <Header />
