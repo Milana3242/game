@@ -13,6 +13,8 @@ import CardItem from '../components/CardItem';
 function CategoryCards(props) {
   const [index, setIndex] = React.useState(0);
   const [points, setPoints] = React.useState(0);
+  const [correct, setCorrect] = React.useState(0);
+  const [incorrect, setInCorrect] = React.useState(0);
   const dispatch = useDispatch();
   const { id, level } = useParams();
   async function getCards() {
@@ -33,15 +35,15 @@ function CategoryCards(props) {
 
   const { cards } = useSelector((state) => state.cards);
   const navigate = useNavigate();
-  const filterCards = cards.filter(
-    (card) => card.id == id && card.level == level
-  );
-  console.log(filterCards);
+  // const filterCards = cards.filter(
+  //   (card) => card.id == id && card.level == level
+  // );
+  // console.log(filterCards);
   function nextCard(e) {
     // console.log(e.target.textContent === String(filterCards[count].answer));
     // console.log(e.target.textContent);
-    const id = filterCards[index].id;
-    const point = filterCards[index].point;
+    const id = cards[index].id;
+    const point = cards[index].point;
     // if (filterCards.length > index - 1) {
 
     // } else {
@@ -49,15 +51,17 @@ function CategoryCards(props) {
     //   // navigate('/');
     // }
 
-    if (e.target.textContent == String(filterCards[index].answer)) {
+    if (e.target.textContent == String(cards[index].answer)) {
       dispatch(changeStatus({ id }));
       dispatch(addPoints(point));
       setPoints((prev) => prev + point);
       setIndex((prev) => prev + 1);
+      setCorrect((prev) => prev + 1);
     } else {
       dispatch(spendPoints(point / 2));
       setIndex((prev) => prev + 1);
       setPoints((prev) => prev - point / 2);
+      setInCorrect((prev) => prev + 1);
     }
   }
   console.log(points);
@@ -67,13 +71,18 @@ function CategoryCards(props) {
   // console.log('filterCards.length > index', filterCards.length > index);
 
   function endGame() {
-    alert(`GAME OVER.Вы заработали ${points} очков!`);
+    alert(`GAME OVER.Верно:${correct} Вы заработали ${points} очков!`);
     navigate('/');
   }
   return (
     <div className="answer">
-      {filterCards.length > index ? (
-        <CardItem nextCard={nextCard} card={filterCards[index]} />
+      <div>
+        Верно:{correct} Неверно:{incorrect}
+      </div>
+      <br />
+      <br />
+      {cards.length > index ? (
+        <CardItem nextCard={nextCard} card={cards[index]} />
       ) : (
         endGame()
       )}
