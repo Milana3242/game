@@ -5,11 +5,13 @@ import storage from 'reduxjs-toolkit-persist/lib/storage';
 import points from './slices/pointsSlice';
 import categories from './slices/categorySlice';
 import cards from './slices/cardSlice';
+import user from './slices/userSlice'
 
 const rootReducer = combineReducers({
   points,
   categories,
   cards,
+  user
 });
 
 const persistConfig = {

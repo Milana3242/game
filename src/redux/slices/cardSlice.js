@@ -12,7 +12,7 @@ const cardSlice = createSlice({
       state.cards = action.payload;
     },
     changeStatus(state, action) {
-      const findCard = state.cards.find((item) => item.id == action.payload.id);
+      const findCard = state.cards.find((item) => item.id == action.payload);
       findCard.status = 1;
     },
   },

@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { setLevel } from "../redux/slices/categorySlice";
 import { spendPoints } from "../redux/slices/pointsSlice";
 import axios from "axios";
+import { addOpenCategory, changeLevel } from "../redux/slices/userSlice";
 
 function Level(props) {
   const { id } = useParams();
@@ -11,31 +12,18 @@ function Level(props) {
   const level = [1, 2, 3];
   const { categories } = useSelector((state) => state.categories);
   const { points } = useSelector((state) => state.points);
+  const { openCategories } = useSelector((state) => state.user);
+
   const findCateg = categories.find((categ) => categ.id == id);
+  const findOpenCateg = openCategories.find((categ) => categ.categoryId == id);
 
-  async function updateCategory(findCateg, i) {
-    let level = findCateg.level.map((item,index) => i===index?{...item,status:1}:item);
-    console.log(level, i);
 
-    try {
-      const res = await axios.put(
-        `https://6686a7ef83c983911b03234c.mockapi.io/categories/${findCateg.id}`,
-        {
-          level: level,
-        }
-      );
-      console.log(res);
-    } catch (err) {
-      console.log(err);
-    }
-    window.scrollTo(0, 0);
-  }
 
-  function openLevel(i) {
+  function openLevel(i,item) {
+    if(findOpenCateg.level>=item)return
     if (points - findCateg.cost >= 0) {
-      dispatch(setLevel({ id, i }));
       dispatch(spendPoints(findCateg.cost, points));
-      updateCategory(findCateg, i);
+      dispatch(changeLevel({ id ,i}));
     } else {
       alert("НЕТ ДЕНЯК БОМЖ");
     }
@@ -43,11 +31,10 @@ function Level(props) {
   return (
     <div className="level_icon">
       {level.map((item, i) => {
-        console.log("sa", findCateg.level[i].status);
 
-        return findCateg.level[i].status === 0 ? (
+        return findOpenCateg.level <i+1 ? (
           <svg
-            onClick={() => openLevel(i)}
+            onClick={() => openLevel(i+1,item)}
             width="80px"
             height="80px"
             viewBox="0 0 24 24"
