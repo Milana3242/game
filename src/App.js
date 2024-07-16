@@ -15,8 +15,8 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route path="" element={<Home />} />
           <Route path="сategory" element={<Category />} />
-          <Route path="Level/:id" element={<Level />} />
-          <Route path="CategoryCards/:id/:level" element={<CategoryCards />} />
+          {/* <Route path="Level/:id" element={<Level />} /> */}
+          <Route path="сategoryCards/:id" element={<CategoryCards />} />
         </Route>
       </Routes>
     </>

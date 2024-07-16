@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   name: "Milana",
   points: 300,
-  openCategories: [{ categoryId: "1", level: 1 }],
+  openCategories: [{ categoryId: "1",}],
 };
 
 const pointsSlice = createSlice({
@@ -12,16 +12,11 @@ const pointsSlice = createSlice({
   reducers: {
     addOpenCategory(state, action) {
       const categId = action.payload.id;
-      state.openCategories.push({ categoryId: categId, level: 1 });
+      state.openCategories.push({ categoryId: categId, });
     },
-    changeLevel(state, action) {
-      const category = state.openCategories.find(
-        (item) => item.categoryId === action.payload.id
-      );
-      category.level = action.payload.i;
-    },
+
   },
 });
 
-export const { addOpenCategory, changeLevel } = pointsSlice.actions;
+export const { addOpenCategory,  } = pointsSlice.actions;
 export default pointsSlice.reducer;

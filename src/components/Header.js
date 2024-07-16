@@ -6,6 +6,7 @@ function Header(props) {
   const { points } = useSelector((state) => state.points);
   const navigate = useNavigate();
   const location = useLocation();
+
   return (
     <div className="Header">
       {location.pathname!=='/' ? (

@@ -1,7 +1,8 @@
 import React from "react";
-import { setCategory } from "../redux/slices/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+
+import { setCategory } from "../redux/slices/categorySlice";
 import CategoryItem from "../components/CategoryItem";
 import { manyPoints } from "../redux/slices/pointsSlice";
 
@@ -58,7 +59,6 @@ function Category(props) {
             level={categ.level}
             avaible={checkAvaible(categ.id)}
             cost={categ.cost}
-            // updateCategory={updateCategory}
           />
         );
       })}

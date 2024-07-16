@@ -1,7 +1,4 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { changeStatus } from "../redux/slices/cardSlice";
-import { spendPoints } from "../redux/slices/pointsSlice";
 import {
   AnimatedBlock,
   useAnimatedValue,
@@ -28,7 +25,11 @@ const styles = {
   },
 };
 
-function CardItem({ card, callBack }) {
+
+
+function CardItem({ card, callBack, setDescription,setAnswer}) {
+
+
 
   const activeIndex = React.useRef(-1);
   const element = React.useRef(
@@ -37,14 +38,17 @@ function CardItem({ card, callBack }) {
         if (finished && value !== 0) {
           console.log("SWIPED AWAY", activeIndex, value, finished);
           const val = value === -500 ? false : true;
-          callBack(card, val);
+          callBack(card, val,);
+          setDescription(card.description)
+          // setAnswer(String(card.answer))
+          // ppp(activeIndex,value)
         }
       },
     })
   );
 
   const scales = React.useRef(useAnimatedValue(1));
-console.log('ss','sss')
+  console.log("ss", "sss");
   const bind = useDrag(function ({
     args: [currentIndex],
     down,
@@ -60,6 +64,9 @@ console.log('ss','sss')
       element.current.value = directionX * 500;
     }
   });
+
+
+
 
   return (
     <>
